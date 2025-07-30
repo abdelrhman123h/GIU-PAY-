@@ -1,0 +1,381 @@
+@import "tailwindcss";
+
+/* Color Theme Variables */
+:root {
+  --color-deep: #030303;
+  --color-navy: #123458;
+  --color-warm: #D4C9BE;
+  --color-light: #F1EFEC;
+
+  --color-bg: var(--color-deep);
+  --color-bg-alt: var(--color-navy);
+  --color-primary: var(--color-warm);
+  --color-primary-dark: var(--color-navy);
+  --color-secondary: var(--color-light);
+  --color-secondary-dark: var(--color-warm);
+  --color-text: var(--color-light);
+  --color-text-muted: var(--color-warm);
+  --color-glass: rgba(18, 52, 88, 0.1);
+  --color-glass-border: rgba(212, 201, 190, 0.25);
+  --font-sans: 'Poppins', sans-serif;
+}
+
+/* THEME MODIFIERS */
+.theme-navy {
+  --color-bg: var(--color-navy);
+  --color-bg-alt: var(--color-deep);
+  --color-primary: var(--color-light);
+  --color-secondary: var(--color-warm);
+  --color-text: var(--color-light);
+  --color-glass: rgba(3, 3, 3, 0.2);
+  --color-glass-border: rgba(241, 239, 236, 0.25);
+}
+
+.theme-warm {
+  --color-bg: var(--color-warm);
+  --color-bg-alt: var(--color-light);
+  --color-primary: var(--color-deep);
+  --color-secondary: var(--color-navy);
+  --color-text: var(--color-deep);
+  --color-text-muted: var(--color-navy);
+  --color-glass: rgba(241, 239, 236, 0.4);
+  --color-glass-border: rgba(18, 52, 88, 0.3);
+}
+
+.theme-light {
+  --color-bg: var(--color-light);
+  --color-bg-alt: var(--color-warm);
+  --color-primary: var(--color-navy);
+  --color-secondary: var(--color-deep);
+  --color-text: var(--color-deep);
+  --color-text-muted: var(--color-navy);
+  --color-glass: rgba(212, 201, 190, 0.3);
+  --color-glass-border: rgba(3, 3, 3, 0.2);
+}
+
+/* BODY STYLING WITH OPTIMIZED ANIMATIONS */
+body {
+  background: linear-gradient(135deg, var(--color-deep), var(--color-navy), var(--color-warm), var(--color-light));
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease-in-out infinite;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  will-change: background-position;
+}
+
+/* Remove lag-inducing radial layers and reduce backdrop-filter */
+body::before {
+  content: '';
+  position: fixed;
+  top: -30%;
+  left: -30%;
+  width: 160%;
+  height: 160%;
+  background: radial-gradient(circle at 50% 50%, rgba(18, 52, 88, 0.05), transparent 70%);
+  animation: float 40s ease-in-out infinite;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent 30%, var(--color-glass) 50%, transparent 70%);
+  animation: shimmer 20s linear infinite;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.1;
+}
+
+/* Headers */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background-size: 200% 200%;
+  animation: textShimmer 10s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  user-select: none;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.1));
+}
+
+h2 {
+  font-size: 1.6rem;
+  color: var(--color-secondary);
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+/* Card Styling - reduced blur */
+.card {
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 24px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+  backdrop-filter: blur(12px) saturate(150%);
+  padding: 2rem 1.5rem;
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.01);
+  border-color: var(--color-primary);
+}
+
+/* Inputs */
+input, textarea {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  border-radius: 14px;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-glass-border);
+  color: var(--color-text);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  border-color: var(--color-primary);
+  background: var(--color-bg);
+  box-shadow: 0 0 0 3px rgba(212, 201, 190, 0.15);
+  transform: scale(1.01);
+  outline: none;
+}
+
+input::placeholder {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+/* Buttons - no glow, smoother gradient */
+button {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary-dark));
+  color: var(--color-deep);
+  padding: 1rem 0;
+  border: none;
+  border-radius: 18px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+button:hover {
+  background: transparent;
+  transform: translateY(-2px) scale(1.02);
+}
+
+button:active {
+  transform: translateY(0) scale(1.01);
+}
+
+/* Balance */
+.balance {
+  font-size: 3rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+  background-size: 200% 200%;
+  animation: textShimmer 10s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  user-select: none;
+}
+
+/* Text Link Button */
+.text-link-btn {
+  background: none;
+  border: none;
+  color: var(--color-secondary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-size: 1rem;
+}
+
+.text-link-btn:hover {
+  color: var(--color-primary);
+}
+
+/* Scrollbar */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 10px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  h1 { font-size: 2.2rem; }
+  .card { padding: 1.5rem 1rem; }
+  .balance { font-size: 2.5rem; }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Animations - smoother */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(10px, -10px); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { transform: translateX(100%); opacity: 0.1; }
+  100% { transform: translateX(-100%); opacity: 0; }
+}
+
+@keyframes textShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+/* Modal Buttons - Larger with gradient and smooth hover animation */
+.modal-button {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary-dark));
+  color: var(--color-deep);
+  padding: 1.25rem 2.5rem; /* larger size */
+  border: none;
+  border-radius: 24px;
+  font-weight: 700;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: 
+    background 0.4s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(212, 201, 190, 0.4);
+  user-select: none;
+}
+
+.modal-button:hover {
+  background: linear-gradient(135deg, var(--color-secondary-dark), var(--color-primary));
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(212, 201, 190, 0.6);
+}
+
+.modal-button:active {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 16px rgba(212, 201, 190, 0.5);
+}
+
+/* Cancel button style */
+.modal-button.cancel {
+  background: transparent;
+  color: var(--color-secondary);
+  padding: 1.25rem 2.5rem;
+  font-weight: 600;
+  border: 2px solid var(--color-secondary);
+  border-radius: 24px;
+  box-shadow: none;
+  transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.modal-button.cancel:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateY(-4px) scale(1.05);
+}
+
+.modal-button.cancel:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Optional: smooth fade-in for modal */
+.modal-fade-in {
+  animation: fadeInModal 0.3s ease forwards;
+}
+
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Unified Background and Card Styling */
+.page-background {
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+/* Consistent Card Style Across Pages */
+.unified-card {
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 24px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(12px) saturate(150%);
+  padding: 2rem;
+  width: 100%;
+  max-width: 42rem;
+  color: var(--color-text);
+}
+
+/* Modal Background and Card */
+.modal-background {
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.modal-card {
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 24px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  max-width: 32rem;
+  width: 100%;
+  color: var(--color-text);
+  animation: fadeInModal 0.4s ease forwards;
+}
+
