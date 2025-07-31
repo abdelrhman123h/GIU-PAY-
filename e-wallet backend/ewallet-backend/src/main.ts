@@ -4,11 +4,15 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
+  const allowedOrigins = process.env.ALLOWED_ORIGINS 
+    ? process.env.ALLOWED_ORIGINS.split(',') 
+    : ['https://giupay.vercel.app'];
+  
   app.enableCors({
-    origin: ['https://giupay.vercel.app', 'http://localhost:3000'], // Add localhost for testing
+    origin: allowedOrigins,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
   
   await app.listen(process.env.PORT ?? 3333);
