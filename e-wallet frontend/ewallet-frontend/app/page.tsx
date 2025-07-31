@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:3333';
+const API_BASE_URL = 'https://giupay-production.up.railway.app';
 
 type AlertType = 'success' | 'error';
 

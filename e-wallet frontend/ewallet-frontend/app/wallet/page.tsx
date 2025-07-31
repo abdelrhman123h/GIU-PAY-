@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-const API_BASE_URL = 'http://localhost:3333';
+const API_BASE_URL = 'https://giupay-production.up.railway.app';
 
 export default function WalletPage() {
   const router = useRouter();
