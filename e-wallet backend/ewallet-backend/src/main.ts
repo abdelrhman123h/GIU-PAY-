@@ -3,8 +3,8 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({
-  origin: ['https://giupay.vercel.app'],
+app.enableCors({
+  origin: 'https://giupay.vercel.app', // no dash, exactly your frontend URL
   credentials: true,
 });
 
